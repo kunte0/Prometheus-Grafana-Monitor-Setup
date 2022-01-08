@@ -1,0 +1,81 @@
+version: '3'
+
+volumes:
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    #   ports:
+    #  - "9090:9090"
+    volumes:
+      - ./config:/etc/prometheus
+      - prometheus-data:/prometheus
+    restart: unless-stopped
+    networks:
+      - grafana_net
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "127.0.0.1:9191:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+    restart: unless-stopped
+    networks:
+      - grafana_net
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    # ports:
+    #   - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    networks:
+      - grafana_net
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    restart: unless-stopped
+    networks:
+      - grafana_net
+    volumes:
+      - '/:/host:ro,rslave'
+
+  blackbox:
+    image: prom/blackbox-exporter:latest
+    container_name: blackbox
+    volumes:
+      - ./config/blackbox.yml:/etc/blackbox_exporter/config.yml
+    restart: unless-stopped
+    networks:
+      - grafana_net
+
+  json_exporter:
+    image: quay.io/prometheuscommunity/json-exporter:latest
+    container_name: json_exporter
+    volumes:
+      - ./config/json_exporter.yml:/config.yml
+    restart: unless-stopped
+    networks:
+      - grafana_net
+
+networks:
+  grafana_net:
+    name: grafana_net

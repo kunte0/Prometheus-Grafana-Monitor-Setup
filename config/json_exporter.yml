@@ -1,0 +1,14 @@
+---
+metrics:
+  - name: api_queue_size
+    path: "{$.queue_size}"
+    type: value
+    help: queue_size value
+  - name: api_timestamp
+    path: "{$.timestamp}"
+    type: object
+    help: timestamp value
+  - name: api_worker_count
+    path: "{$.worker_count}"
+    type: value
+    help: worker_count value
