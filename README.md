@@ -41,5 +41,5 @@ server {
 
 ## Usage
 
-Go to grafana dashboard, login with `admin:admin` and change the password. Play around with itand import some dashboards and panels. Go to the [dashboard library](https://grafana.com/grafana/dashboards/), copy the id and import it. Set up alerts to telegram, discord or slack.
+Go to grafana dashboard, login with `admin:admin` and change the password. Play around with it and import some dashboards and panels. Go to the [dashboard library](https://grafana.com/grafana/dashboards/), copy the id and import it. Set up alerts to telegram, discord or slack.
 
