@@ -37,6 +37,8 @@ services:
     container_name: cadvisor
     # ports:
     #   - "8080:8080"
+    devices:
+      - /dev/kmsg:/dev/kmsg
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:ro
