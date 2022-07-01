@@ -43,3 +43,7 @@ server {
 
 Go to grafana dashboard, login with `admin:admin` and change the password. Play around with it and import some dashboards and panels. Go to the [dashboard library](https://grafana.com/grafana/dashboards/), copy the id and import it. Set up alerts to telegram, discord or slack.
 
+### Good Dashboards
+- [Docker Monitoring with Prometheus and cAdvisor](https://grafana.com/grafana/dashboards/193) import `193`
+- [Celery Monitoring with Flower](https://github.com/mher/flower/blob/master/examples/celery-monitoring-grafana-dashboard.json) import json
+- [Host Monitor with Node Exporter](https://grafana.com/grafana/dashboards/1860) import `1860`
